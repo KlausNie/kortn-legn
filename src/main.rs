@@ -1,3 +1,28 @@
+use crate::deck::{create_deck, is_in_order, randomize};
+use crate::deck::def::{Card, CardColor, CardNumber};
+
+mod deck;
+mod game;
+
 fn main() {
-    println!("Hello, world!");
+
+    let deck: Vec<Card> = create_deck();
+    let shuffled = randomize(deck);
+    println!("{:?}", shuffled);
+    let c1 = Card {
+        color: CardColor::Herz,
+        number: CardNumber::Ass
+    };
+    let c2 = Card {
+        color: CardColor::Schell,
+        number: CardNumber::Siebma
+    };
+    println!("{:?}", c1);
+    println!("{:?}", c1.cmp(&c2));
+    println!("{:?}", c2);
+    println!("{:?}", c2);
+    println!("{:?}", c2.cmp(&c1));
+    println!("{:?}", c1);
+
+    println!("in order: {:?}", is_in_order(shuffled))
 }
