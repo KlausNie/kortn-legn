@@ -34,7 +34,3 @@ pub fn create_deck() -> Vec<Card> {
 
     return cards;
 }
-
-pub fn randomize(cards: Vec<Card>) -> Vec<Card> {
-    return cards;
-}

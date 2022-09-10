@@ -11,7 +11,7 @@ pub struct Field {
     pub not_played_cards: VecDeque<Card>
 }
 
-pub fn initField(cards: Vec<Card>) -> Field {
+pub fn init_field(cards: Vec<Card>) -> Field {
     Field {
         top_stack1: vec![],
         top_stack2: vec![],

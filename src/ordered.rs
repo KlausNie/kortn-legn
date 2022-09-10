@@ -18,7 +18,7 @@ impl Ordered for VecDeque<Card> {
             let array_elem1 = self[index];
             let array_elem2 = self[index + 1];
             if !array_elem1.is_next_higher(array_elem2) {
-                println!("failed: {:?} {:?}", array_elem1, array_elem2);
+                // println!("failed: {:?} {:?}", array_elem1, array_elem2);
                 is_sorted_incrementally = false;
             }
         }
@@ -36,7 +36,7 @@ impl Ordered for Vec<Card> {
             let array_elem1 = self[index];
             let array_elem2 = self[index + 1];
             if !array_elem1.is_next_higher(array_elem2) {
-                println!("failed: {:?} {:?}", array_elem1, array_elem2);
+                // println!("failed: {:?} {:?}", array_elem1, array_elem2);
                 is_sorted_incrementally = false;
             }
         }
