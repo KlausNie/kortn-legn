@@ -1,6 +1,10 @@
 use std::collections::VecDeque;
-use crate::{Card, Field};
+use crate::{Field};
+use crate::deck::next_higher::NextHigher;
+use crate::PlaySource::{BottomStack1, BottomStack2, BottomStack3, NotPlayedCards};
+use crate::PlayTarget::{TopStack1, TopStack2};
 
+#[derive(Debug,Copy, Clone, PartialEq)]
 pub enum PlaySource {
     BottomStack1,
     BottomStack2,
@@ -8,6 +12,7 @@ pub enum PlaySource {
     NotPlayedCards,
 }
 
+#[derive(Debug,Copy, Clone, PartialEq)]
 pub enum PlayTarget {
     TopStack1,
     TopStack2,
@@ -117,9 +122,11 @@ impl Play for Field {
                 }
             }
             PlaySource::NotPlayedCards => {
-                let splits = self.not_played_cards.split_off(1);
                 let first = self.not_played_cards.front().unwrap().clone();
-                let rest = splits.as_slices().1.to_vec().clone();
+                let splits = self.not_played_cards.split_off(1);
+                let rest = splits.as_slices().0.to_vec().clone();
+                // println!("first {:?}", first);
+                // println!("rest {:?}", splits.as_slices().0);
 
                 return match target {
                     PlayTarget::TopStack1 => {
@@ -183,6 +190,62 @@ impl Play for Field {
     }
 
     fn can_play(&self, source: PlaySource, target: PlayTarget) -> bool {
-        todo!()
+        let card_to_be_played = match source {
+            BottomStack1 => {
+                self.bottom_stack1.first()
+            }
+            BottomStack2 => {
+                self.bottom_stack2.first()
+            }
+            BottomStack3 => {
+                self.bottom_stack3.first()
+            }
+            NotPlayedCards => {
+                self.not_played_cards.front()
+            }
+        };
+
+        let not_allowed =
+            (
+                source == BottomStack1 ||
+                source == BottomStack2 ||
+                source == BottomStack3
+            ) && (
+                source == BottomStack1 ||
+                source == BottomStack2 ||
+                source == BottomStack3
+            );
+
+        if card_to_be_played.is_none() || not_allowed {
+            return false
+        }
+
+        let unwrapped_card = card_to_be_played.unwrap();
+
+        return match target {
+            TopStack1 => {
+                let current_top_wrapped = self.top_stack1.last();
+                if current_top_wrapped.is_none() {
+                    true
+                } else {
+                    let current_top = current_top_wrapped.unwrap().clone();
+                    println!("---{:?} {:?} {:?}", current_top, unwrapped_card, unwrapped_card.is_next_higher(current_top));
+                    unwrapped_card.is_next_higher(current_top)
+                }
+            }
+            TopStack2 => {
+                let current_top_wrapped = self.top_stack2.last();
+                if current_top_wrapped.is_none() {
+                    true
+                } else {
+                    let current_top = current_top_wrapped.unwrap().clone();
+                    println!("---{:?} {:?} {:?}", current_top, unwrapped_card, unwrapped_card.is_next_higher(current_top));
+                    unwrapped_card.is_next_higher(current_top)
+                }
+            }
+            _ => {
+                true
+            }
+        };
     }
 }

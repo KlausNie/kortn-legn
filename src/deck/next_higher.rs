@@ -1,4 +1,5 @@
-use std::cmp::Ordering;
+use CardNumber::Ochta;
+use crate::CardNumber::{Ass, Kinig, Neina, Obo, Siebma, Unto, Zehna};
 use crate::deck::card::Card;
 use crate::deck::card_number::CardNumber;
 
@@ -8,9 +9,34 @@ pub trait NextHigher<T> {
 
 impl NextHigher<Card> for Card {
     fn is_next_higher(&self, other: Card) -> bool {
-        if self.number == CardNumber::Ass && other.number == CardNumber::Siebma {
+        if self.number == Siebma && other.number == Ass {
             return true
         }
-        return self.number.cmp(&other.number) == Ordering::Less
+        return match self.number {
+            Siebma => {
+                other.number == Ass
+            }
+            Ochta => {
+                other.number == Siebma
+            }
+            Neina => {
+                other.number == Ochta
+            }
+            Zehna => {
+                other.number == Neina
+            }
+            Unto => {
+                other.number == Zehna
+            }
+            Obo => {
+                other.number == Unto
+            }
+            Kinig => {
+                other.number == Obo
+            }
+            Ass => {
+                other.number == Kinig
+            }
+        }
     }
 }

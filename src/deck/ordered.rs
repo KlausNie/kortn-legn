@@ -30,6 +30,9 @@ impl Ordered for VecDeque<Card> {
 impl Ordered for Vec<Card> {
     fn is_in_order(&self) -> bool {
         let mut is_sorted_incrementally = true;
+        if self.len() <= 0 {
+            return true
+        }
 
         let indexed = 0..self.len() - 1;
         for index in indexed {
