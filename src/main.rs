@@ -4,9 +4,11 @@ mod ordered;
 mod randomize;
 
 use crate::deck::{create_deck};
-use crate::deck::def::{Card, CardColor, CardNumber};
+use crate::deck::card::Card;
+use crate::deck::card_color::CardColor;
+use crate::deck::card_number::CardNumber;
 use crate::ordered::Ordered;
-use crate::randomize::Randomize;
+use crate::randomize::randomize::Randomize;
 
 
 fn main() {

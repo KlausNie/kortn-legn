@@ -1,6 +1,6 @@
 use std::collections::VecDeque;
 use crate::Card;
-use crate::deck::def::NextHigher;
+use crate::deck::next_higher::NextHigher;
 
 pub trait Ordered {
     fn is_in_order(&self) -> bool;

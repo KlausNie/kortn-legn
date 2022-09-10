@@ -1,6 +1,11 @@
-pub mod def;
+pub mod card;
+pub mod card_color;
+pub mod card_number;
+pub mod next_higher;
 
-use crate::deck::def::{Card, CardNumber, CardColor};
+use crate::deck::card::Card;
+use crate::deck::card_color::CardColor;
+use crate::deck::card_number::CardNumber;
 
 const COLORS_ARRAY: [CardColor; 4] = [
     CardColor::Herz,
