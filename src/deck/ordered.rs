@@ -8,7 +8,7 @@ pub trait Ordered {
 
 // consider moving all the implementations to their structs
 
-// figure out if there is a supertype of VecDeque & Vec
+// figure out if there is a supertype of VecDeque & Vec or a collection type
 impl Ordered for VecDeque<Card> {
     fn is_in_order(&self) -> bool {
         let mut is_sorted_incrementally = true;

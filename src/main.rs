@@ -1,21 +1,20 @@
 mod deck;
-mod game;
-mod ordered;
-mod randomize;
+mod field;
 
-use crate::deck::{create_deck};
 use crate::deck::card::Card;
 use crate::deck::card_color::CardColor;
 use crate::deck::card_number::CardNumber;
-use crate::ordered::Ordered;
-use crate::randomize::randomize::Randomize;
+use crate::deck::create_deck::create_deck;
+use crate::field::init_field::init_field;
+use deck::ordered::Ordered;
+use deck::randomize::Randomize;
 
 
 fn main() {
     let deck: Vec<Card> = create_deck();
     let shuffled = deck.randomize();
     println!("{:?}", shuffled.clone());
-    let field = game::init_field(shuffled);
+    let field = init_field(shuffled);
     let c1 = Card {
         color: CardColor::Herz,
         number: CardNumber::Ass
