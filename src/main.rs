@@ -1,11 +1,12 @@
-use crate::deck::{create_deck, Ordered, randomize};
-use crate::deck::def::{Card, CardColor, CardNumber};
-
 mod deck;
 mod game;
+mod ordered;
+
+use crate::deck::{create_deck, randomize};
+use crate::deck::def::{Card, CardColor, CardNumber};
+use crate::ordered::Ordered;
 
 fn main() {
-
     let deck: Vec<Card> = create_deck();
     let field = game::initField(randomize(deck));
 //     println!("{:?}", shuffled);
