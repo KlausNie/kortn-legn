@@ -1,4 +1,4 @@
-use crate::{Field};
+use crate::{Card, Field};
 use crate::deck::next_higher::NextHigher;
 use crate::PlaySource::{BottomStack1, BottomStack2, BottomStack3, NotPlayedCards};
 use crate::PlayTarget::{TopStack1, TopStack2};
@@ -21,15 +21,21 @@ pub enum PlayTarget {
 }
 
 pub trait CardMovement {
-    fn play_card(&mut self, source: PlaySource, target: PlayTarget) -> Field;
+    fn play_card(&self, source: PlaySource, target: PlayTarget) -> Field;
 
     fn can_play(&self, source: PlaySource, target: PlayTarget) -> bool;
 }
 
+fn clone_and_add<T : Clone>(vec: &Vec<T>, item: T) -> Vec<T> {
+    let mut new_vec = vec.clone();
+    new_vec.push(item);
+    new_vec
+}
 
 impl CardMovement for Field {
     /// TODO investigate if all these clones are necessary, or if I can do it with references
-    fn play_card(&mut self, source: PlaySource, target: PlayTarget) -> Field {
+    /// investigate mut
+    fn play_card(&self, source: PlaySource, target: PlayTarget) -> Field {
         match source {
             BottomStack1 => {
                 let (first, rest) = self.get_top_and_rest_of_source(BottomStack1);
@@ -37,9 +43,8 @@ impl CardMovement for Field {
 
                 match target {
                     TopStack1 => {
-                        self.top_stack1.push(first);
                         return Field {
-                            top_stack1: self.top_stack1.clone(),
+                            top_stack1: clone_and_add(&self.top_stack1, first),
                             top_stack2: self.top_stack2.clone(),
                             bottom_stack1: rest,
                             bottom_stack2: self.bottom_stack2.clone(),
@@ -48,10 +53,9 @@ impl CardMovement for Field {
                         };
                     }
                     TopStack2 => {
-                        self.top_stack2.push(first);
                         return Field {
                             top_stack1: self.top_stack1.clone(),
-                            top_stack2: self.top_stack2.clone(),
+                            top_stack2: clone_and_add(&self.top_stack2, first),
                             bottom_stack1: rest,
                             bottom_stack2: self.bottom_stack2.clone(),
                             bottom_stack3: self.bottom_stack3.clone(),
@@ -67,9 +71,8 @@ impl CardMovement for Field {
 
                 match target {
                     TopStack1 => {
-                        self.top_stack1.push(first);
                         return Field {
-                            top_stack1: self.top_stack1.clone(),
+                            top_stack1: clone_and_add(&self.top_stack1, first),
                             top_stack2: self.top_stack2.clone(),
                             bottom_stack1: self.bottom_stack1.clone(),
                             bottom_stack2: rest,
@@ -78,10 +81,9 @@ impl CardMovement for Field {
                         };
                     }
                     TopStack2 => {
-                        self.top_stack2.push(first);
                         return Field {
                             top_stack1: self.top_stack1.clone(),
-                            top_stack2: self.top_stack2.clone(),
+                            top_stack2: clone_and_add(&self.top_stack2, first),
                             bottom_stack1: self.bottom_stack1.clone(),
                             bottom_stack2: rest,
                             bottom_stack3: self.bottom_stack3.clone(),
@@ -97,9 +99,8 @@ impl CardMovement for Field {
 
                 match target {
                     TopStack1 => {
-                        self.top_stack1.push(first);
                         return Field {
-                            top_stack1: self.top_stack1.clone(),
+                            top_stack1: clone_and_add(&self.top_stack1, first),
                             top_stack2: self.top_stack2.clone(),
                             bottom_stack1: self.bottom_stack1.clone(),
                             bottom_stack2: self.bottom_stack2.clone(),
@@ -108,10 +109,9 @@ impl CardMovement for Field {
                         };
                     }
                     TopStack2 => {
-                        self.top_stack2.push(first);
                         return Field {
                             top_stack1: self.top_stack1.clone(),
-                            top_stack2: self.top_stack2.clone(),
+                            top_stack2: clone_and_add(&self.top_stack2, first),
                             bottom_stack1: self.bottom_stack1.clone(),
                             bottom_stack2: self.bottom_stack2.clone(),
                             bottom_stack3: rest,
@@ -127,9 +127,8 @@ impl CardMovement for Field {
 
                 return match target {
                     TopStack1 => {
-                        self.top_stack1.push(first);
                         Field {
-                            top_stack1: self.top_stack1.clone(),
+                            top_stack1: clone_and_add(&self.top_stack1, first),
                             top_stack2: self.top_stack2.clone(),
                             bottom_stack1: self.bottom_stack1.clone(),
                             bottom_stack2: self.bottom_stack2.clone(),
@@ -138,10 +137,9 @@ impl CardMovement for Field {
                         }
                     }
                     TopStack2 => {
-                        self.top_stack2.push(first);
                         Field {
                             top_stack1: self.top_stack1.clone(),
-                            top_stack2: self.top_stack2.clone(),
+                            top_stack2: clone_and_add(&self.top_stack2, first),
                             bottom_stack1: self.bottom_stack1.clone(),
                             bottom_stack2: self.bottom_stack2.clone(),
                             bottom_stack3: self.bottom_stack3.clone(),
@@ -149,35 +147,32 @@ impl CardMovement for Field {
                         }
                     }
                     PlayTarget::BottomStack1 => {
-                        self.bottom_stack1.push(first);
                         Field {
                             top_stack1: self.top_stack1.clone(),
                             top_stack2: self.top_stack2.clone(),
-                            bottom_stack1: self.bottom_stack1.clone(),
+                            bottom_stack1: clone_and_add(&self.bottom_stack1, first),
                             bottom_stack2: self.bottom_stack2.clone(),
                             bottom_stack3: self.bottom_stack3.clone(),
                             not_played_cards: rest,
                         }
                     }
                     PlayTarget::BottomStack2 => {
-                        self.bottom_stack2.push(first);
                         Field {
                             top_stack1: self.top_stack1.clone(),
                             top_stack2: self.top_stack2.clone(),
                             bottom_stack1: self.bottom_stack1.clone(),
-                            bottom_stack2: self.bottom_stack2.clone(),
+                            bottom_stack2: clone_and_add(&self.bottom_stack2, first),
                             bottom_stack3: self.bottom_stack3.clone(),
                             not_played_cards: rest,
                         }
                     }
                     PlayTarget::BottomStack3 => {
-                        self.bottom_stack3.push(first);
                         Field {
                             top_stack1: self.top_stack1.clone(),
                             top_stack2: self.top_stack2.clone(),
                             bottom_stack1: self.bottom_stack1.clone(),
                             bottom_stack2: self.bottom_stack2.clone(),
-                            bottom_stack3: self.bottom_stack3.clone(),
+                            bottom_stack3: clone_and_add(&self.bottom_stack3, first),
                             not_played_cards: rest,
                         }
                     }
