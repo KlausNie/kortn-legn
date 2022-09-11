@@ -1,24 +1,9 @@
-use crate::{Card, Field};
 use crate::deck::next_higher::NextHigher;
-use crate::PlaySource::{BottomStack1, BottomStack2, BottomStack3, NotPlayedCards};
-use crate::PlayTarget::{TopStack1, TopStack2};
-
-#[derive(Debug,Copy, Clone, PartialEq)]
-pub enum PlaySource {
-    BottomStack1,
-    BottomStack2,
-    BottomStack3,
-    NotPlayedCards,
-}
-
-#[derive(Debug,Copy, Clone, PartialEq)]
-pub enum PlayTarget {
-    TopStack1,
-    TopStack2,
-    BottomStack1,
-    BottomStack2,
-    BottomStack3,
-}
+use crate::field::field::Field;
+use crate::field::play_source::PlaySource;
+use crate::field::play_source::PlaySource::{BottomStack1, BottomStack2, BottomStack3};
+use crate::field::play_target::PlayTarget;
+use crate::field::play_target::PlayTarget::{TopStack1, TopStack2};
 
 pub trait CardMovement {
     fn play_card(&self, source: PlaySource, target: PlayTarget) -> Field;
@@ -34,7 +19,6 @@ fn clone_and_add<T : Clone>(vec: &Vec<T>, item: T) -> Vec<T> {
 
 impl CardMovement for Field {
     /// TODO investigate if all these clones are necessary, or if I can do it with references
-    /// investigate mut
     fn play_card(&self, source: PlaySource, target: PlayTarget) -> Field {
         match source {
             BottomStack1 => {

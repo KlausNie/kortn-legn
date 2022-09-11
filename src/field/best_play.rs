@@ -1,7 +1,9 @@
 use crate::deck::next_higher::NextHigher;
-use crate::{Field, PlaySource, PlayTarget};
-use crate::PlaySource::{BottomStack1, BottomStack2, BottomStack3, NotPlayedCards};
-use crate::PlayTarget::{TopStack1, TopStack2};
+use crate::field::field::Field;
+use crate::field::play_source::PlaySource;
+use crate::field::play_source::PlaySource::{BottomStack1, BottomStack2, BottomStack3, NotPlayedCards};
+use crate::field::play_target::{PlayTarget};
+use crate::field::play_target::PlayTarget::{TopStack1, TopStack2};
 
 pub enum HasBestPlay {
     None,

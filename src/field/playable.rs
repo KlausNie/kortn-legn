@@ -1,9 +1,10 @@
 use crate::deck::next_higher::NextHigher;
 use crate::field::field::Field;
 use crate::OverallGameState::{NotYetDone, Stuck, Success};
-use crate::PlaySource::{BottomStack1, BottomStack2, BottomStack3, NotPlayedCards};
-use crate::{Ordered, PlayTarget};
-use crate::PlayTarget::{TopStack1, TopStack2};
+use crate::{Ordered};
+use crate::field::play_source::PlaySource::{BottomStack1, BottomStack2, BottomStack3, NotPlayedCards};
+use crate::field::play_target::PlayTarget;
+use crate::field::play_target::PlayTarget::{TopStack1, TopStack2};
 
 pub trait Playable {
     fn finished(&self) -> OverallGameState;

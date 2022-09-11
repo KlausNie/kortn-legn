@@ -1,4 +1,6 @@
-use crate::{Card, PlaySource, PlayTarget};
+use crate::{Card};
+use crate::field::play_source::PlaySource;
+use crate::field::play_target::PlayTarget;
 
 #[derive(Debug)]
 pub struct Field {
