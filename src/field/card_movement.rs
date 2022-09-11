@@ -6,12 +6,11 @@ use crate::field::play_target::PlayTarget;
 use crate::field::play_target::PlayTarget::{TopStack1, TopStack2};
 
 pub trait CardMovement {
-    fn play_card(&self, source: PlaySource, target: PlayTarget) -> Field;
-
     /// consider unifying can_play and play_card into a fashion, so that when play_card is called
     /// with an invalid configuration, can_play would check beforehand and return a result
     /// e.g. result of that function Result<Field, InvalidMove>
     fn can_play(&self, source: PlaySource, target: PlayTarget) -> bool;
+    fn play_card(&self, source: PlaySource, target: PlayTarget) -> Field;
 }
 
 fn clone_and_add<T : Clone>(vec: &Vec<T>, item: T) -> Vec<T> {
@@ -21,6 +20,64 @@ fn clone_and_add<T : Clone>(vec: &Vec<T>, item: T) -> Vec<T> {
 }
 
 impl CardMovement for Field {
+    fn can_play(&self, source: PlaySource, target: PlayTarget) -> bool {
+        let card_to_be_played = match source {
+            BottomStack1 => {
+                self.bottom_stack1.last()
+            }
+            BottomStack2 => {
+                self.bottom_stack2.last()
+            }
+            BottomStack3 => {
+                self.bottom_stack3.last()
+            }
+            NotPlayedCards => {
+                self.not_played_cards.last()
+            }
+        };
+
+        let not_allowed =
+            (
+                source == BottomStack1 ||
+                source == BottomStack2 ||
+                source == BottomStack3
+            ) && (
+                target == PlayTarget::BottomStack1 ||
+                target == PlayTarget::BottomStack2 ||
+                target == PlayTarget::BottomStack3
+            );
+
+        if card_to_be_played.is_none() || not_allowed {
+            return false
+        }
+
+        let unwrapped_card = card_to_be_played.unwrap();
+
+        return match target {
+            TopStack1 => {
+                let current_top_wrapped = self.top_stack1.last();
+                if current_top_wrapped.is_none() {
+                    true
+                } else {
+                    let current_top = current_top_wrapped.unwrap();
+                    unwrapped_card.is_next_higher(current_top)
+                }
+            }
+            TopStack2 => {
+                let current_top_wrapped = self.top_stack2.last();
+                if current_top_wrapped.is_none() {
+                    true
+                } else {
+                    let current_top = current_top_wrapped.unwrap();
+                    unwrapped_card.is_next_higher(current_top)
+                }
+            }
+            _ => {
+                true
+            }
+        };
+    }
+
     /// TODO investigate if all these clones are necessary, or if I can do it with references
     /// TODO would be cool if this could be simplified by A LOT
     fn play_card(&self, source: PlaySource, target: PlayTarget) -> Field {
@@ -165,64 +222,6 @@ impl CardMovement for Field {
                         }
                     }
                 }
-            }
-        };
-    }
-
-    fn can_play(&self, source: PlaySource, target: PlayTarget) -> bool {
-        let card_to_be_played = match source {
-            BottomStack1 => {
-                self.bottom_stack1.last()
-            }
-            BottomStack2 => {
-                self.bottom_stack2.last()
-            }
-            BottomStack3 => {
-                self.bottom_stack3.last()
-            }
-            NotPlayedCards => {
-                self.not_played_cards.last()
-            }
-        };
-
-        let not_allowed =
-            (
-                source == BottomStack1 ||
-                source == BottomStack2 ||
-                source == BottomStack3
-            ) && (
-                target == PlayTarget::BottomStack1 ||
-                target == PlayTarget::BottomStack2 ||
-                target == PlayTarget::BottomStack3
-            );
-
-        if card_to_be_played.is_none() || not_allowed {
-            return false
-        }
-
-        let unwrapped_card = card_to_be_played.unwrap();
-
-        return match target {
-            TopStack1 => {
-                let current_top_wrapped = self.top_stack1.last();
-                if current_top_wrapped.is_none() {
-                    true
-                } else {
-                    let current_top = current_top_wrapped.unwrap();
-                    unwrapped_card.is_next_higher(current_top)
-                }
-            }
-            TopStack2 => {
-                let current_top_wrapped = self.top_stack2.last();
-                if current_top_wrapped.is_none() {
-                    true
-                } else {
-                    let current_top = current_top_wrapped.unwrap();
-                    unwrapped_card.is_next_higher(current_top)
-                }
-            }
-            _ => {
-                true
             }
         };
     }
