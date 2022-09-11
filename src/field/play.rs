@@ -122,11 +122,8 @@ impl Play for Field {
                 }
             }
             PlaySource::NotPlayedCards => {
-                let first = self.not_played_cards.front().unwrap().clone();
-                let splits = self.not_played_cards.split_off(1);
-                let rest = splits.as_slices().0.to_vec().clone();
-                // println!("first {:?}", first);
-                // println!("rest {:?}", splits.as_slices().0);
+                let rest = self.not_played_cards.split_off(1);
+                let first = self.not_played_cards.first().unwrap().clone();
 
                 return match target {
                     PlayTarget::TopStack1 => {
@@ -137,7 +134,7 @@ impl Play for Field {
                             bottom_stack1: self.bottom_stack1.clone(),
                             bottom_stack2: self.bottom_stack2.clone(),
                             bottom_stack3: self.bottom_stack3.clone(),
-                            not_played_cards: VecDeque::from(rest),
+                            not_played_cards: rest,
                         }
                     }
                     PlayTarget::TopStack2 => {
@@ -148,7 +145,7 @@ impl Play for Field {
                             bottom_stack1: self.bottom_stack1.clone(),
                             bottom_stack2: self.bottom_stack2.clone(),
                             bottom_stack3: self.bottom_stack3.clone(),
-                            not_played_cards: VecDeque::from(rest),
+                            not_played_cards: rest,
                         }
                     }
                     PlayTarget::BottomStack1 => {
@@ -159,7 +156,7 @@ impl Play for Field {
                             bottom_stack1: self.bottom_stack1.clone(),
                             bottom_stack2: self.bottom_stack2.clone(),
                             bottom_stack3: self.bottom_stack3.clone(),
-                            not_played_cards: VecDeque::from(rest),
+                            not_played_cards: rest,
                         }
                     }
                     PlayTarget::BottomStack2 => {
@@ -170,7 +167,7 @@ impl Play for Field {
                             bottom_stack1: self.bottom_stack1.clone(),
                             bottom_stack2: self.bottom_stack2.clone(),
                             bottom_stack3: self.bottom_stack3.clone(),
-                            not_played_cards: VecDeque::from(rest),
+                            not_played_cards: rest,
                         }
                     }
                     PlayTarget::BottomStack3 => {
@@ -181,7 +178,7 @@ impl Play for Field {
                             bottom_stack1: self.bottom_stack1.clone(),
                             bottom_stack2: self.bottom_stack2.clone(),
                             bottom_stack3: self.bottom_stack3.clone(),
-                            not_played_cards: VecDeque::from(rest),
+                            not_played_cards: rest,
                         }
                     }
                 }
@@ -201,7 +198,7 @@ impl Play for Field {
                 self.bottom_stack3.first()
             }
             NotPlayedCards => {
-                self.not_played_cards.front()
+                self.not_played_cards.first()
             }
         };
 
