@@ -22,6 +22,7 @@ fn clone_and_add<T : Clone>(vec: &Vec<T>, item: T) -> Vec<T> {
 
 impl CardMovement for Field {
     /// TODO investigate if all these clones are necessary, or if I can do it with references
+    /// TODO would be cool if this could be simplified by A LOT
     fn play_card(&self, source: PlaySource, target: PlayTarget) -> Field {
         match source {
             BottomStack1 => {
