@@ -6,13 +6,9 @@ use crate::field::play_source::PlaySource::{BottomStack1, BottomStack2, BottomSt
 use crate::field::play_target::PlayTarget;
 use crate::field::play_target::PlayTarget::{TopStack1, TopStack2};
 
-pub trait Playable {
-    fn finished(&self) -> OverallGameState;
-}
-
-impl Playable for Field {
+impl Field {
     /// consider unifying function (since it is so similar) with best_play.rs
-    fn finished(&self) -> OverallGameState {
+    pub(crate) fn finished(&self) -> OverallGameState {
         let all_cards_played = self.not_played_cards.len() == 0;
 
         if !all_cards_played {

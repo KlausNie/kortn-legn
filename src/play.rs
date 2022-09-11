@@ -3,7 +3,6 @@ use crate::deck::create_deck::create_deck;
 use crate::deck::randomize::Randomize;
 use crate::field::field::Field;
 use crate::field::init_field::init_field;
-use crate::field::playable::Playable;
 use crate::field::overall_game_state::OverallGameState;
 use crate::strategy::random_play::RandomPlay;
 use crate::strategy::strategy::{Strategy, StrategyResult};
