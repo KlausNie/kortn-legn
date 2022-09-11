@@ -8,7 +8,7 @@ use crate::field::init_field::init_field;
 use crate::field::card_movement::{CardMovement};
 use crate::field::play_source::PlaySource;
 use crate::field::playable::Playable;
-use crate::{OverallGameState};
+use crate::field::overall_game_state::OverallGameState;
 use crate::field::play_target::PlayTarget;
 
 fn setup() -> Field {
@@ -38,8 +38,6 @@ pub fn play() -> Field {
         PlayTarget::TopStack1,
         PlayTarget::TopStack2,
     ];
-
-
 
     while field.finished() == OverallGameState::NotYetDone {
 

@@ -8,7 +8,8 @@ use crate::deck::card::Card;
 use crate::deck::card_color::CardColor;
 use crate::deck::card_number::CardNumber;
 use crate::deck::ordered::Ordered;
-use crate::field::playable::{OverallGameState, Playable};
+use crate::field::overall_game_state::OverallGameState;
+use crate::field::playable::{Playable};
 use crate::play::{play};
 
 fn main() {

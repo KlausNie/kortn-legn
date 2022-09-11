@@ -11,7 +11,7 @@ pub enum HasBestPlay {
 }
 
 impl Field {
-    /// consider unifying with playable.rs
+    /// consider unifying function (since it is so similar) with playable.rs
     pub(crate) fn best_play(&self) -> HasBestPlay {
         let combinations = [
             (BottomStack1, TopStack1),

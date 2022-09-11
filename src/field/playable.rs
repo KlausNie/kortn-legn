@@ -1,7 +1,8 @@
 use crate::deck::next_higher::NextHigher;
 use crate::field::field::Field;
-use crate::OverallGameState::{NotYetDone, Stuck, Success};
 use crate::{Ordered};
+use crate::field::overall_game_state::OverallGameState;
+use crate::field::overall_game_state::OverallGameState::{NotYetDone, Stuck, Success};
 use crate::field::play_source::PlaySource::{BottomStack1, BottomStack2, BottomStack3, NotPlayedCards};
 use crate::field::play_target::PlayTarget;
 use crate::field::play_target::PlayTarget::{TopStack1, TopStack2};
@@ -9,15 +10,9 @@ use crate::field::play_target::PlayTarget::{TopStack1, TopStack2};
 pub trait Playable {
     fn finished(&self) -> OverallGameState;
 }
-#[derive(PartialEq, Debug)]
-pub enum OverallGameState {
-    NotYetDone,
-    Stuck,
-    Success
-}
 
 impl Playable for Field {
-    /// consider unifying with best_play.rs
+    /// consider unifying function (since it is so similar) with best_play.rs
     fn finished(&self) -> OverallGameState {
         let all_cards_played = self.not_played_cards.len() == 0;
 
