@@ -5,7 +5,6 @@ use crate::deck::randomize::Randomize;
 use crate::field::best_play::HasBestPlay;
 use crate::field::field::Field;
 use crate::field::init_field::init_field;
-use crate::field::card_movement::{CardMovement};
 use crate::field::play_source::PlaySource;
 use crate::field::playable::Playable;
 use crate::field::overall_game_state::OverallGameState;
@@ -41,22 +40,23 @@ pub fn play() -> Field {
 
     while field.finished() == OverallGameState::NotYetDone {
 
-        match field.best_play() {
+        let (source, target) = match field.best_play() {
             HasBestPlay::BestPlay(source, target) => {
-                let can_play = field.can_play(source, target);
-                if can_play {
-                    field = field.play_card(source, target);
-                }
+                (source, target)
             }
             HasBestPlay::None => {
                 let source = sources[random_nr_0_to(sources.len())];
                 let target = targets[random_nr_0_to(targets.len())];
 
-                let can_play = field.can_play(source, target);
-                if can_play {
-                    field = field.play_card(source, target);
-                }
+                (source, target)
             }
+        };
+
+        let result = field.try_play_card(source, target);
+        if result.is_ok() {
+            field = result.unwrap()
+        } else {
+            // println!("Error happened: {:?}", result.unwrap_err())
         }
     }
 
