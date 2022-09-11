@@ -20,14 +20,14 @@ pub enum PlayTarget {
     BottomStack3,
 }
 
-pub trait Play {
+pub trait CardMovement {
     fn play_card(&mut self, source: PlaySource, target: PlayTarget) -> Field;
 
     fn can_play(&self, source: PlaySource, target: PlayTarget) -> bool;
 }
 
 
-impl Play for Field {
+impl CardMovement for Field {
     /// TODO investigate if all these clones are necessary, or if I can do it with references
     fn play_card(&mut self, source: PlaySource, target: PlayTarget) -> Field {
         match source {

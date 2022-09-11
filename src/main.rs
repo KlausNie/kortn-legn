@@ -9,7 +9,7 @@ use crate::deck::card_color::CardColor;
 use crate::deck::card_number::CardNumber;
 use crate::deck::ordered::Ordered;
 use crate::field::field::Field;
-use crate::field::play::{PlaySource, PlayTarget};
+use crate::field::card_movement::{PlaySource, PlayTarget};
 use crate::field::playable::{OverallGameState, Playable};
 use crate::play::{play};
 
