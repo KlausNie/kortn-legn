@@ -1,18 +1,14 @@
 use crate::deck::next_higher::NextHigher;
 use crate::field::field::Field;
-use crate::field::play_source::PlaySource;
 use crate::field::play_source::PlaySource::{BottomStack1, BottomStack2, BottomStack3, NotPlayedCards};
-use crate::field::play_target::{PlayTarget};
+use crate::field::play_target::PlayTarget;
 use crate::field::play_target::PlayTarget::{TopStack1, TopStack2};
+use crate::strategy::strategy::{Strategy, StrategyResult};
 
-pub enum HasBestPlay {
-    None,
-    BestPlay(PlaySource, PlayTarget)
-}
+pub struct SimpleBestPlay {}
 
-impl Field {
-    /// consider unifying function (since it is so similar) with playable.rs
-    pub(crate) fn best_play(&self) -> HasBestPlay {
+impl Strategy for SimpleBestPlay {
+    fn invoke(&self, field: &Field) -> StrategyResult {
         let combinations = [
             (BottomStack1, TopStack1),
             (BottomStack1, TopStack2),
@@ -28,12 +24,12 @@ impl Field {
         ];
 
         for (source, target) in combinations {
-            let card = self.get_top_of_source(source);
-            if card.is_some() && card.unwrap().fits_onto_stack(self.get_target(target)) {
-                return HasBestPlay::BestPlay(source, target)
+            let card = field.get_top_of_source(source);
+            if card.is_some() && card.unwrap().fits_onto_stack(field.get_target(target)) {
+                return StrategyResult::Play(source, target)
             }
         }
 
-        return HasBestPlay::None;
+        return StrategyResult::None;
     }
 }
