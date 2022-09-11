@@ -1,20 +1,27 @@
 use crate::deck::next_higher::NextHigher;
 use crate::field::field::Field;
+use crate::OverallGameState::{NotYetDone, Stuck, Success};
 use crate::PlaySource::{BottomStack1, BottomStack2, BottomStack3, NotPlayedCards};
-use crate::PlayTarget;
+use crate::{Ordered, PlayTarget};
 use crate::PlayTarget::{TopStack1, TopStack2};
 
 pub trait Playable {
-    fn finished(&self) -> bool;
+    fn finished(&self) -> OverallGameState;
+}
+#[derive(PartialEq, Debug)]
+pub enum OverallGameState {
+    NotYetDone,
+    Stuck,
+    Success
 }
 
 impl Playable for Field {
     /// consider unifying with best_play.rs
-    fn finished(&self) -> bool {
+    fn finished(&self) -> OverallGameState {
         let all_cards_played = self.not_played_cards.len() == 0;
 
         if !all_cards_played {
-            return false
+            return NotYetDone
         }
 
         let combinations = [
@@ -34,10 +41,19 @@ impl Playable for Field {
         for (source, target) in combinations {
             let card = self.get_top_of_source(source);
             if card.is_some() && card.unwrap().fits_onto_stack(self.get_target(target)) {
-                return false
+                return NotYetDone
             }
         }
 
-        return true
+        if self.top_stack1.len() + self.top_stack2.len() == 32 {
+            let top_stack1_in_order = self.top_stack1.is_in_order();
+            let top_stack2_in_order = self.top_stack2.is_in_order();
+            if top_stack1_in_order &&
+                top_stack2_in_order {
+                return Success
+            }
+        }
+
+        return Stuck
     }
 }

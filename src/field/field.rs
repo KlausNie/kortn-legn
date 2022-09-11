@@ -52,15 +52,22 @@ impl Field {
         self.get_source(play_source).last()
     }
 
-    pub fn get_top_of_target(&self, play_target: PlayTarget) -> Option<&Card> {
-        self.get_target(play_target).last()
-    }
-
     pub fn get_top_and_rest_of_source(&self, play_source: PlaySource) -> (Option<&Card>, Vec<Card>) {
         let head = self.get_top_of_source(play_source);
         let source_list = self.get_source(play_source);
         let rest = (source_list[..source_list.len() - 1]).to_vec();
 
         (head, rest)
+    }
+
+    pub fn stats(&self) -> String {
+        return format!(
+            "t1: {:?}  t2: {:?}  b1: {:?}  b2: {:?}  b3: {:?}",
+            self.top_stack1.len(),
+            self.top_stack2.len(),
+            self.bottom_stack1.len(),
+            self.bottom_stack2.len(),
+            self.bottom_stack3.len()
+        )
     }
 }
