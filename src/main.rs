@@ -10,13 +10,13 @@ use crate::deck::card_color::CardColor;
 use crate::deck::card_number::CardNumber;
 use crate::deck::ordered::Ordered;
 use crate::field::overall_game_state::OverallGameState;
-use crate::play::{play};
+use crate::play::playing::playing;
 use crate::strategy::simple_best_play::SimpleBestPlay;
 
 fn main() {
     let mut c = 0;
     while c < 1000 {
-        let result_field = play(SimpleBestPlay{});
+        let result_field = playing(SimpleBestPlay{});
         if result_field.finished() == OverallGameState::Success {
             println!("Game {:?} ended with result {:?} ({})", c, result_field.finished(), result_field.stats());
             println!("not_played_cards: {:?}", result_field.not_played_cards);
