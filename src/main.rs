@@ -1,12 +1,11 @@
 extern crate core;
+extern crate game;
 
-mod deck;
-mod field;
 mod play;
 mod strategy;
 
-use crate::deck::ordered::Ordered;
-use crate::field::overall_game_state::OverallGameState;
+use game::deck::ordered::Ordered;
+use game::field::overall_game_state::OverallGameState;
 use crate::play::playing::playing;
 use crate::strategy::simple_best_play::SimpleBestPlay;
 

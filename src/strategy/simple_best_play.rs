@@ -1,7 +1,7 @@
-use crate::field::field::Field;
-use crate::field::play_source::PlaySource::{BottomStack1, BottomStack2, BottomStack3, NotPlayedCards};
-use crate::field::play_target::PlayTarget;
-use crate::field::play_target::PlayTarget::{TopStack1, TopStack2};
+use game::field::field::Field;
+use game::field::play_source::PlaySource::{BottomStack1, BottomStack2, BottomStack3, NotPlayedCards};
+use game::field::play_target::PlayTarget;
+use game::field::play_target::PlayTarget::{TopStack1, TopStack2};
 use crate::strategy::strategy::{Strategy, StrategyResult};
 
 pub struct SimpleBestPlay {}

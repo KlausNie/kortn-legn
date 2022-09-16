@@ -1,5 +1,5 @@
-use crate::field::field::Field;
-use crate::{OverallGameState};
+use game::field::field::Field;
+use game::field::overall_game_state::OverallGameState;
 use crate::play::setup::setup;
 use crate::strategy::random_play::RandomPlay;
 use crate::strategy::strategy::{Strategy, StrategyResult};

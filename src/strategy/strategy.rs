@@ -1,6 +1,6 @@
-use crate::field::field::Field;
-use crate::field::play_source::PlaySource;
-use crate::field::play_target::PlayTarget;
+use game::field::field::Field;
+use game::field::play_source::PlaySource;
+use game::field::play_target::PlayTarget;
 
 pub enum StrategyResult {
     Play(PlaySource, PlayTarget),
