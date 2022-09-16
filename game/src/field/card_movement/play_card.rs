@@ -1,4 +1,4 @@
-use crate::field::field::Field;
+use crate::field::field::{Field, Stats};
 use crate::field::play_source::PlaySource;
 use crate::field::play_target::PlayTarget;
 
@@ -11,6 +11,9 @@ impl Field {
     /// (copy only for bitwise copies 🤷‍). Since I cannot implement a Copy for that I considered using
     /// slices for the fields in the struct, but slices do not allow appending, and I'm not going down the
     /// route to provide a mutable slice reference...
+    ///
+    ///
+    /// All I'm doing here, is picking a card from a stack and putting it onto another one
     pub(crate) fn play_card(&self, source: PlaySource, target: PlayTarget) -> Field {
         match source {
             PlaySource::BottomStack1 => {
@@ -26,6 +29,10 @@ impl Field {
                             bottom_stack2: self.bottom_stack2.clone(),
                             bottom_stack3: self.bottom_stack3.clone(),
                             not_played_cards: self.not_played_cards.clone(),
+                            stats: Stats {
+                                steps: self.stats.steps + 1,
+                                ..self.stats
+                            }
                         };
                     }
                     PlayTarget::TopStack2 => {
@@ -36,6 +43,10 @@ impl Field {
                             bottom_stack2: self.bottom_stack2.clone(),
                             bottom_stack3: self.bottom_stack3.clone(),
                             not_played_cards: self.not_played_cards.clone(),
+                            stats: Stats {
+                                steps: self.stats.steps + 1,
+                                ..self.stats
+                            }
                         };
                     }
                     _ => { panic!() }
@@ -54,6 +65,10 @@ impl Field {
                             bottom_stack2: rest,
                             bottom_stack3: self.bottom_stack3.clone(),
                             not_played_cards: self.not_played_cards.clone(),
+                            stats: Stats {
+                                steps: self.stats.steps + 1,
+                                ..self.stats
+                            }
                         };
                     }
                     PlayTarget::TopStack2 => {
@@ -64,6 +79,10 @@ impl Field {
                             bottom_stack2: rest,
                             bottom_stack3: self.bottom_stack3.clone(),
                             not_played_cards: self.not_played_cards.clone(),
+                            stats: Stats {
+                                steps: self.stats.steps + 1,
+                                ..self.stats
+                            }
                         };
                     }
                     _ => { panic!() }
@@ -82,6 +101,10 @@ impl Field {
                             bottom_stack2: self.bottom_stack2.clone(),
                             bottom_stack3: rest,
                             not_played_cards: self.not_played_cards.clone(),
+                            stats: Stats {
+                                steps: self.stats.steps + 1,
+                                ..self.stats
+                            }
                         };
                     }
                     PlayTarget::TopStack2 => {
@@ -92,6 +115,10 @@ impl Field {
                             bottom_stack2: self.bottom_stack2.clone(),
                             bottom_stack3: rest,
                             not_played_cards: self.not_played_cards.clone(),
+                            stats: Stats {
+                                steps: self.stats.steps + 1,
+                                ..self.stats
+                            }
                         };
                     }
                     _ => { panic!() }
@@ -110,6 +137,10 @@ impl Field {
                             bottom_stack2: self.bottom_stack2.clone(),
                             bottom_stack3: self.bottom_stack3.clone(),
                             not_played_cards: rest,
+                            stats: Stats {
+                                steps: self.stats.steps + 1,
+                                ..self.stats
+                            }
                         }
                     }
                     PlayTarget::TopStack2 => {
@@ -120,6 +151,10 @@ impl Field {
                             bottom_stack2: self.bottom_stack2.clone(),
                             bottom_stack3: self.bottom_stack3.clone(),
                             not_played_cards: rest,
+                            stats: Stats {
+                                steps: self.stats.steps + 1,
+                                ..self.stats
+                            }
                         }
                     }
                     PlayTarget::BottomStack1 => {
@@ -130,6 +165,10 @@ impl Field {
                             bottom_stack2: self.bottom_stack2.clone(),
                             bottom_stack3: self.bottom_stack3.clone(),
                             not_played_cards: rest,
+                            stats: Stats {
+                                steps: self.stats.steps + 1,
+                                ..self.stats
+                            }
                         }
                     }
                     PlayTarget::BottomStack2 => {
@@ -140,6 +179,10 @@ impl Field {
                             bottom_stack2: clone_and_add(&self.bottom_stack2, first),
                             bottom_stack3: self.bottom_stack3.clone(),
                             not_played_cards: rest,
+                            stats: Stats {
+                                steps: self.stats.steps + 1,
+                                ..self.stats
+                            }
                         }
                     }
                     PlayTarget::BottomStack3 => {
@@ -150,6 +193,10 @@ impl Field {
                             bottom_stack2: self.bottom_stack2.clone(),
                             bottom_stack3: clone_and_add(&self.bottom_stack3, first),
                             not_played_cards: rest,
+                            stats: Stats {
+                                steps: self.stats.steps + 1,
+                                ..self.stats
+                            }
                         }
                     }
                 }
