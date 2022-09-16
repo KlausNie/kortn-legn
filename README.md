@@ -8,6 +8,11 @@ And in a second step, to see if that can be improved.
 cargo watch -x 'run'
 ```
 
+## Tests
+```shell
+cargo test
+```
+
 ## Display the module tree
 ```shell
 cargo modules generate tree
