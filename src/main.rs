@@ -12,7 +12,7 @@ use crate::play::playing::playing;
 use crate::strategy::simple_best_play::SimpleBestPlay;
 
 fn main() {
-    let n = 100000;
+    let n = 1000;
     let (wins, avg_duration) = play_games(n, false);
     println!("{:?}/{:?} = {:.2}%", wins, n, (wins as f64).div(n as f64).mul(100.0));
     println!("avg duration: {:?}", avg_duration)
