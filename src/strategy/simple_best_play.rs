@@ -10,10 +10,10 @@ impl Strategy for SimpleBestPlay {
     fn invoke(&self, field: &Field) -> StrategyResult {
         let combinations = [
             (BottomStack1, TopStack1),
-            (BottomStack1, TopStack2),
             (BottomStack2, TopStack1),
-            (BottomStack2, TopStack2),
             (BottomStack3, TopStack1),
+            (BottomStack1, TopStack2),
+            (BottomStack2, TopStack2),
             (BottomStack3, TopStack2),
             (NotPlayedCards, TopStack1),
             (NotPlayedCards, TopStack2),
