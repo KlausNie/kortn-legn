@@ -1,4 +1,4 @@
-use crate::Card;
+use crate::deck::card::Card;
 use crate::deck::create_deck::create_deck;
 use crate::deck::randomize::Randomize;
 use crate::field::field::Field;

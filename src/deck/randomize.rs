@@ -1,7 +1,7 @@
 use rand::{Rng, thread_rng};
 use crate::deck::card::Card;
 
-pub trait Randomize<T> {
+pub(crate) trait Randomize<T> {
     fn randomize(&self) -> T;
 }
 

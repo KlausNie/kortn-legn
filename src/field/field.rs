@@ -1,4 +1,4 @@
-use crate::{Card};
+use crate::deck::card::Card;
 use crate::field::play_source::PlaySource;
 use crate::field::play_target::PlayTarget;
 

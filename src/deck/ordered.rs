@@ -1,4 +1,4 @@
-use crate::Card;
+use crate::deck::card::Card;
 
 pub trait Ordered {
     fn is_in_order(&self) -> bool;

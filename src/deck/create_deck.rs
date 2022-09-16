@@ -1,4 +1,6 @@
-use crate::{Card, CardColor, CardNumber};
+use crate::deck::card::Card;
+use crate::deck::card_color::CardColor;
+use crate::deck::card_number::CardNumber;
 
 const COLORS_ARRAY: [CardColor; 4] = [
     CardColor::Herz,
@@ -17,7 +19,7 @@ const NUMBERS_ARRAY: [CardNumber; 8] = [
     CardNumber::Ass,
 ];
 
-pub fn create_deck() -> Vec<Card> {
+pub(crate) fn create_deck() -> Vec<Card> {
     let mut cards: Vec<Card> = Vec::with_capacity(32);
     for card_color in COLORS_ARRAY {
         for card_number in NUMBERS_ARRAY {

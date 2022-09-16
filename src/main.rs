@@ -5,9 +5,6 @@ mod field;
 mod play;
 mod strategy;
 
-use crate::deck::card::Card;
-use crate::deck::card_color::CardColor;
-use crate::deck::card_number::CardNumber;
 use crate::deck::ordered::Ordered;
 use crate::field::overall_game_state::OverallGameState;
 use crate::play::playing::playing;

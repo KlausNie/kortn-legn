@@ -1,4 +1,4 @@
-use crate::Card;
+use crate::deck::card::Card;
 
 impl Card {
     pub(crate) fn fits_onto_stack(&self, stack: &Vec<Card>) -> bool {

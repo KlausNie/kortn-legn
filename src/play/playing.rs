@@ -4,7 +4,7 @@ use crate::play::setup::setup;
 use crate::strategy::random_play::RandomPlay;
 use crate::strategy::strategy::{Strategy, StrategyResult};
 
-pub fn playing<T: Strategy>(strategy: T) -> Field {
+pub(crate) fn playing<T: Strategy>(strategy: T) -> Field {
     let mut field: Field = setup();
     let random_strategy = RandomPlay {};
 

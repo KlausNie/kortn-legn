@@ -1,4 +1,4 @@
-use crate::Card;
+use crate::deck::card::Card;
 use crate::field::field::Field;
 
 pub fn init_field(cards: Vec<Card>) -> Field {

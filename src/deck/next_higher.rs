@@ -1,7 +1,7 @@
 use CardNumber::Ochta;
-use crate::CardNumber::{Ass, Kinig, Neina, Obo, Siebma, Unto, Zehna};
 use crate::deck::card::Card;
 use crate::deck::card_number::CardNumber;
+use crate::deck::card_number::CardNumber::{Ass, Kinig, Neina, Obo, Siebma, Unto, Zehna};
 
 /// shitty implementation to check if this card is the next higher one to the other
 impl Card {
