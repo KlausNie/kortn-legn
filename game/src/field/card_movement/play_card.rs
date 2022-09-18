@@ -1,7 +1,7 @@
 use crate::field::field::{Field};
 use crate::field::play_source::PlaySource;
 use crate::field::play_target::PlayTarget;
-use crate::field::stats::Stats;
+use crate::field::stats::{Stats, Step};
 
 impl Field {
     /// TODO investigate if all these clones are necessary, or if I can do it with references
@@ -16,11 +16,13 @@ impl Field {
     ///
     /// All I'm doing here, is picking a card from a stack and putting it onto another one
     pub(crate) fn play_card(&self, source: PlaySource, target: PlayTarget) -> Field {
+        let (first, rest) = self.get_top_and_rest_of_source(source);
+        let first = first.unwrap().clone();
+        let mut steps = self.stats.steps.clone();
+        steps.push_back(Step::from(source, target, first.clone()));
+
         match source {
             PlaySource::BottomStack1 => {
-                let (first, rest) = self.get_top_and_rest_of_source(PlaySource::BottomStack1);
-                let first = first.unwrap().clone();
-
                 match target {
                     PlayTarget::TopStack1 => {
                         return Field {
@@ -31,7 +33,7 @@ impl Field {
                             bottom_stack3: self.bottom_stack3.clone(),
                             not_played_cards: self.not_played_cards.clone(),
                             stats: Stats {
-                                steps: self.stats.steps + 1,
+                                steps: steps,
                                 ..self.stats
                             }
                         };
@@ -45,7 +47,7 @@ impl Field {
                             bottom_stack3: self.bottom_stack3.clone(),
                             not_played_cards: self.not_played_cards.clone(),
                             stats: Stats {
-                                steps: self.stats.steps + 1,
+                                steps: steps,
                                 ..self.stats
                             }
                         };
@@ -54,9 +56,6 @@ impl Field {
                 }
             }
             PlaySource::BottomStack2 => {
-                let (first, rest) = self.get_top_and_rest_of_source(PlaySource::BottomStack2);
-                let first = first.unwrap().clone();
-
                 match target {
                     PlayTarget::TopStack1 => {
                         return Field {
@@ -67,7 +66,7 @@ impl Field {
                             bottom_stack3: self.bottom_stack3.clone(),
                             not_played_cards: self.not_played_cards.clone(),
                             stats: Stats {
-                                steps: self.stats.steps + 1,
+                                steps: steps,
                                 ..self.stats
                             }
                         };
@@ -81,7 +80,7 @@ impl Field {
                             bottom_stack3: self.bottom_stack3.clone(),
                             not_played_cards: self.not_played_cards.clone(),
                             stats: Stats {
-                                steps: self.stats.steps + 1,
+                                steps: steps,
                                 ..self.stats
                             }
                         };
@@ -90,9 +89,6 @@ impl Field {
                 }
             }
             PlaySource::BottomStack3 => {
-                let (first, rest) = self.get_top_and_rest_of_source(PlaySource::BottomStack3);
-                let first = first.unwrap().clone();
-
                 match target {
                     PlayTarget::TopStack1 => {
                         return Field {
@@ -103,7 +99,7 @@ impl Field {
                             bottom_stack3: rest,
                             not_played_cards: self.not_played_cards.clone(),
                             stats: Stats {
-                                steps: self.stats.steps + 1,
+                                steps: steps,
                                 ..self.stats
                             }
                         };
@@ -117,7 +113,7 @@ impl Field {
                             bottom_stack3: rest,
                             not_played_cards: self.not_played_cards.clone(),
                             stats: Stats {
-                                steps: self.stats.steps + 1,
+                                steps: steps,
                                 ..self.stats
                             }
                         };
@@ -126,9 +122,6 @@ impl Field {
                 }
             }
             PlaySource::NotPlayedCards => {
-                let (first, rest) = self.get_top_and_rest_of_source(PlaySource::NotPlayedCards);
-                let first = first.unwrap().clone();
-
                 return match target {
                     PlayTarget::TopStack1 => {
                         Field {
@@ -139,7 +132,7 @@ impl Field {
                             bottom_stack3: self.bottom_stack3.clone(),
                             not_played_cards: rest,
                             stats: Stats {
-                                steps: self.stats.steps + 1,
+                                steps: steps,
                                 ..self.stats
                             }
                         }
@@ -153,7 +146,7 @@ impl Field {
                             bottom_stack3: self.bottom_stack3.clone(),
                             not_played_cards: rest,
                             stats: Stats {
-                                steps: self.stats.steps + 1,
+                                steps: steps,
                                 ..self.stats
                             }
                         }
@@ -167,7 +160,7 @@ impl Field {
                             bottom_stack3: self.bottom_stack3.clone(),
                             not_played_cards: rest,
                             stats: Stats {
-                                steps: self.stats.steps + 1,
+                                steps: steps,
                                 ..self.stats
                             }
                         }
@@ -181,7 +174,7 @@ impl Field {
                             bottom_stack3: self.bottom_stack3.clone(),
                             not_played_cards: rest,
                             stats: Stats {
-                                steps: self.stats.steps + 1,
+                                steps: steps,
                                 ..self.stats
                             }
                         }
@@ -195,7 +188,7 @@ impl Field {
                             bottom_stack3: clone_and_add(&self.bottom_stack3, first),
                             not_played_cards: rest,
                             stats: Stats {
-                                steps: self.stats.steps + 1,
+                                steps: steps,
                                 ..self.stats
                             }
                         }

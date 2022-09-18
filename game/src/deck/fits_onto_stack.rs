@@ -14,6 +14,6 @@ impl Card {
         if last_on_stack.is_none() {
             return true;
         }
-        return self.is_higher_or_less_than(last_on_stack.unwrap(), max_distance)
+        return last_on_stack.unwrap().is_higher_or_less_than(self, max_distance)
     }
 }

@@ -25,6 +25,19 @@ const ARRAY: [CardNumber; 8] = [
 
 impl CardNumber {
     /// how the fuck do I get the value out of this enum
+    pub fn value(&self) -> char {
+        match self {
+            Siebma => { '7' }
+            Ochta => { '8' }
+            Neina => { '9' }
+            Zehna => { 'X' }
+            Unto => { 'U' }
+            Obo => { 'O' }
+            Kinig => { 'K' }
+            Ass => { 'A' }
+        }
+    }
+
     fn index(&self) -> usize {
         ARRAY.iter().position(|&n| n == *self).unwrap()
     }

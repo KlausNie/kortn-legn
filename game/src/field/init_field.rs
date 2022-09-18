@@ -1,6 +1,7 @@
+use std::collections::LinkedList;
 use crate::deck::card::Card;
 use crate::field::field::Field;
-use crate::field::stats::Stats;
+use crate::field::stats::{Stats};
 
 pub fn init_field(cards: Vec<Card>) -> Field {
     Field {
@@ -11,7 +12,7 @@ pub fn init_field(cards: Vec<Card>) -> Field {
         bottom_stack3: vec![],
         not_played_cards: cards,
         stats: Stats {
-            steps: 1
+            steps: LinkedList::new()
         }
     }
 }

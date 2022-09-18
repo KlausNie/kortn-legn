@@ -1,7 +1,7 @@
 use crate::deck::card::Card;
 use crate::field::play_source::PlaySource;
 use crate::field::play_target::PlayTarget;
-use crate::field::stats::Stats;
+use crate::field::stats::{Stats};
 
 #[derive(Debug)]
 pub struct Field {
@@ -73,5 +73,14 @@ impl Field {
             self.bottom_stack2.len(),
             self.bottom_stack3.len()
         )
+    }
+
+    pub fn show_path(&self) {
+        for (i, step) in self.stats.steps
+            .iter()
+            .filter(|&step| step.target == PlayTarget::BottomStack1)
+            .enumerate() {
+            println!("{:?}: {:?}", i + 1, step);
+        }
     }
 }

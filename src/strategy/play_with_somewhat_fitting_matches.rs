@@ -25,7 +25,7 @@ impl Strategy for SomewhatFittingPlay {
         for (source, target) in combinations {
             if let Some(card) = field.get_top_of_source(source) {
                 if target == PlayTarget::BottomStack1 || target == PlayTarget::BottomStack2 || target == PlayTarget::BottomStack3 {
-                    if card.fits_somewhat_onto_stack(field.get_target(target), 3) {
+                    if card.fits_somewhat_onto_stack(field.get_target(target), 2) {
                         return StrategyResult::Play(source, target)
                     }
                 }
