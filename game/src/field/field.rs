@@ -78,7 +78,7 @@ impl Field {
     pub fn show_path(&self) {
         for (i, step) in self.stats.steps
             .iter()
-            .filter(|&step| step.target == PlayTarget::BottomStack1)
+            // .filter(|&step| step.target == PlayTarget::BottomStack1)
             .enumerate() {
             println!("{:?}: {:?}", i + 1, step);
         }
