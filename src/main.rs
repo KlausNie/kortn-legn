@@ -33,7 +33,7 @@ fn play_games(n: i32, log: bool) -> (i32, Duration, Option<u32>, Option<u32>, Op
     let mut total_duration: Duration = Duration::new(0, 0);
     let mut steps_when_winning: u32 = 0;
     let mut steps_when_stuck: u32 = 0;
-    let mut winning_field: Option<Field> = Option::None;
+    let mut winning_field: Option<Field> = None;
     for i in 0..n {
         let start = Instant::now();
         let result_field = playing(SomewhatFittingPlay {});
