@@ -1,4 +1,5 @@
 pub mod field;
+pub mod stats;
 pub mod init_field;
 mod playable;
 mod card_movement;

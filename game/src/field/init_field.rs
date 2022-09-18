@@ -1,6 +1,6 @@
 use crate::deck::card::Card;
 use crate::field::field::Field;
-use crate::field::field::Stats;
+use crate::field::stats::Stats;
 
 pub fn init_field(cards: Vec<Card>) -> Field {
     Field {

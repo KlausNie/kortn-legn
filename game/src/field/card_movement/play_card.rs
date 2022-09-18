@@ -1,6 +1,7 @@
-use crate::field::field::{Field, Stats};
+use crate::field::field::{Field};
 use crate::field::play_source::PlaySource;
 use crate::field::play_target::PlayTarget;
+use crate::field::stats::Stats;
 
 impl Field {
     /// TODO investigate if all these clones are necessary, or if I can do it with references

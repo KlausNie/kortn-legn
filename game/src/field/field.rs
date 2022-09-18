@@ -1,6 +1,7 @@
 use crate::deck::card::Card;
 use crate::field::play_source::PlaySource;
 use crate::field::play_target::PlayTarget;
+use crate::field::stats::Stats;
 
 #[derive(Debug)]
 pub struct Field {
@@ -11,11 +12,6 @@ pub struct Field {
     pub bottom_stack3: Vec<Card>,
     pub not_played_cards: Vec<Card>,
     pub stats: Stats
-}
-
-#[derive(Debug, Copy, Clone)]
-pub struct Stats {
-    pub steps: u32
 }
 
 impl Field {
