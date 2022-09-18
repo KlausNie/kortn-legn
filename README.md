@@ -10,7 +10,7 @@ cargo watch -x 'run'
 
 ## Tests
 ```shell
-cargo test
+cargo test --workspace -- --nocapture
 ```
 
 ## Display the module tree

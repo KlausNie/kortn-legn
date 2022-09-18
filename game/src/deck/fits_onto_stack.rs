@@ -8,4 +8,12 @@ impl Card {
         }
         return self.is_next_higher(last_on_stack.unwrap())
     }
+
+    pub fn fits_somewhat_onto_stack(&self, stack: &Vec<Card>, max_distance: u16) -> bool {
+        let last_on_stack = stack.last();
+        if last_on_stack.is_none() {
+            return true;
+        }
+        return self.is_higher_or_less_than(last_on_stack.unwrap(), max_distance)
+    }
 }

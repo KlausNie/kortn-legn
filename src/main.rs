@@ -1,4 +1,7 @@
-extern crate core;
+#![allow(dead_code)]
+#![allow(unused_variables)]
+#![allow(unused_imports)]
+
 extern crate game;
 
 mod play;
@@ -9,6 +12,7 @@ use std::time::{Duration, Instant};
 use game::deck::ordered::Ordered;
 use game::field::overall_game_state::OverallGameState;
 use crate::play::playing::playing;
+use crate::strategy::play_with_somewhat_fitting_matches::SomewhatFittingPlay;
 use crate::strategy::random_play::RandomPlay;
 use crate::strategy::simple_best_play::SimpleBestPlay;
 
@@ -28,7 +32,7 @@ fn play_games(n: i32, log: bool) -> (i32, Duration, Option<u32>, Option<u32>) {
     let mut steps_when_stuck: u32 = 0;
     for i in 0..n {
         let start = Instant::now();
-        let result_field = playing(SimpleBestPlay{});
+        let result_field = playing(SomewhatFittingPlay{});
         if result_field.finished() == OverallGameState::Success {
             wins = wins + 1;
             steps_when_winning = steps_when_winning + result_field.stats.steps;

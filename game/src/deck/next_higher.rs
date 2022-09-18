@@ -37,6 +37,13 @@ impl Card {
             }
         }
     }
+
+    pub(crate) fn is_higher_or_less_than(&self, other: &Card, distance: u16) -> bool {
+        if self.is_next_higher(other) {
+            return true
+        }
+        self.number.is_somewhat_higher(&other.number, distance)
+    }
 }
 
 #[cfg(test)]
@@ -58,5 +65,39 @@ mod tests {
 
         assert!(herz_siebma.is_next_higher(&herz_ass));
         assert!(!herz_ass.is_next_higher(&herz_siebma));
+    }
+
+    #[test]
+    fn is_higher_or_less_than() {
+        let herz_ass = Card {
+            color: CardColor::Herz,
+            number: CardNumber::Ass
+        };
+        let herz_siebma = Card {
+            color: CardColor::Herz,
+            number: CardNumber::Siebma
+        };
+        let herz_ochta = Card {
+            color: CardColor::Herz,
+            number: CardNumber::Ochta
+        };
+        let herz_neina = Card {
+            color: CardColor::Herz,
+            number: CardNumber::Neina
+        };
+        let herz_zehna = Card {
+            color: CardColor::Herz,
+            number: CardNumber::Zehna
+        };
+        let herz_unto = Card {
+            color: CardColor::Herz,
+            number: CardNumber::Unto
+        };
+
+        assert!(herz_siebma.is_higher_or_less_than(&herz_ass, 3));
+        assert!(herz_ochta.is_higher_or_less_than(&herz_ass, 3));
+        assert!(herz_neina.is_higher_or_less_than(&herz_ass, 3));
+        assert!(!herz_zehna.is_higher_or_less_than(&herz_ass, 3));
+        assert!(!herz_unto.is_higher_or_less_than(&herz_ass, 3));
     }
 }
